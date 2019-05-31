@@ -36,7 +36,7 @@ const js = () =>
 			)
 		)
 		.pipe(rename({ suffix: ".min" }))
-		.pipe(dest("dist/js"))
+		.pipe(dest("docs/js"))
 		.pipe(browser.stream());
 
 const html = () =>
@@ -58,7 +58,7 @@ const html = () =>
 				})
 			)
 		)
-		.pipe(dest("dist"))
+		.pipe(dest("docs"))
 		.pipe(browser.stream());
 
 const css = () =>
@@ -79,18 +79,18 @@ const css = () =>
 			)
 		)
 		.pipe(rename({ suffix: ".min" }))
-		.pipe(dest("dist/css"))
+		.pipe(dest("docs/css"))
 		.pipe(browser.stream());
 
 const clear = () =>
-	src("dist", { allowEmpty: true })
+	src("docs", { allowEmpty: true })
 		.pipe(plumber())
 		.pipe(clean());
 
 const fonts = () =>
 	src("node_modules/simple-line-icons/fonts/*.{eot,svg,ttf,woff,woff2}")
 		.pipe(plumber())
-		.pipe(dest("dist/font"));
+		.pipe(dest("docs/font"));
 
 const reload = async done => {
 	await browser.reload();
@@ -99,7 +99,7 @@ const reload = async done => {
 const start = () => {
 	browser.init({
 		server: {
-			baseDir: "dist"
+			baseDir: "docs"
 		}
 	});
 
