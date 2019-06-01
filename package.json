@@ -35,7 +35,6 @@
 		"materialize-css": "1.*",
 		"moment": "2.*",
 		"node-sass-tilde-importer": "1.*",
-		"simple-line-icons": "2.*",
 		"tinyify": "2.*",
 		"vanilla-lazyload": "12.*",
 		"vue": "2.*",

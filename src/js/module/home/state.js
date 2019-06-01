@@ -1,4 +1,5 @@
 export default {
 	articles: [],
-	lazyload: null
+	lazyload: null,
+	mobileMenu: null
 };

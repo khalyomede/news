@@ -1,7 +1,10 @@
 <template lang="pug">
   .card
     .card-image.waves-effect.waves-block.waves-light
-        img.activator.lazy(v-bind:src="image" alt="Article illustration")
+      img.activator.lazy(v-bind:src="image" alt="Article illustration" v-if="image")
+      a(v-bind:class="`btn-floating halfway-fab waves-effect waves-light ${color}`")
+        i.material-icons(v-if="!bookmarked" v-on:click="bookmark") bookmark_outline
+        i.material-icons(v-if="bookmarked" v-on:click="unbookmark") bookmark
     .card-content
       div
         span(v-bind:class="`chip ${color} white-text`") {{ source }}
@@ -21,13 +24,13 @@
 <script>
 import isUrl from "is-url";
 import moment from "moment";
+import { Toast } from "materialize-css";
 
 export default {
   props: {
     image: {
       type: String,
-      required: true,
-      validator: value => isUrl(value)
+      default: ""
     },
     title: {
       type: String,
@@ -54,12 +57,78 @@ export default {
       validator: value => !isNaN(new Date(value))
     }
   },
+  data() {
+    return {
+      bookmarked: false,
+      delayBeforeToastCompletlyDisplayed: 300,
+      toastDisplayDuration: 2000
+    };
+  },
+  created() {
+    this.bookmarked = this.$store.getters["app/bookmarkedArticles"].find(
+      article => article.url === this.link
+    );
+  },
   computed: {
     elapsed() {
       return moment(this.publishedAt).fromNow();
     },
     cleanTitle() {
       return this.title.replace(/(-[\s\w.]+$)/gimu, "");
+    }
+  },
+  methods: {
+    bookmark() {
+      new Toast({
+        html: `Bookmarking...`,
+        inDuration: this.delayBeforeToastCompletlyDisplayed,
+        displayLength: this.toastDisplayDuration,
+        classes: this.color
+      });
+
+      setTimeout(
+        async function() {
+          const article = this.$store.getters["home/articles"].find(
+            article => article.url === this.link
+          );
+
+          await this.$store.dispatch("app/bookmarkArticle", article);
+
+          this.bookmarked = true;
+
+          new Toast({
+            html: "Bookmarked.",
+            inDuration: this.delayBeforeToastCompletlyDisplayed,
+            displayLength: this.toastDisplayDuration,
+            classes: this.color
+          });
+        }.bind(this),
+        this.delayBeforeToastCompletlyDisplayed
+      );
+    },
+    unbookmark() {
+      new Toast({
+        html: "Unbookmarking...",
+        inDuration: this.delayBeforeToastCompletlyDisplayed,
+        displayLength: this.toastDisplayDuration,
+        classes: this.color
+      });
+
+      setTimeout(
+        async function() {
+          await this.$store.dispatch("app/unbookmarkArticle", this.link);
+
+          this.bookmarked = false;
+
+          new Toast({
+            html: "Unbookmarked",
+            inDuration: this.delayBeforeToastCompletlyDisplayed,
+            displayLength: this.toastDisplayDuration,
+            classes: this.color
+          });
+        }.bind(this),
+        this.delayBeforeToastCompletlyDisplayed
+      );
     }
   },
   mounted() {

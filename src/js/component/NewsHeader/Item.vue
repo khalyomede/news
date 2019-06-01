@@ -1,6 +1,6 @@
 <template lang="pug">
   li
-    router-link(v-bind:to="to")
+    router-link(v-bind:to="to" v-bind:class="textColor")
       slot
 </template>
 <script>
@@ -12,6 +12,11 @@ export default {
       type: String,
       required: true,
       validator: value => isRelativeUrl(value)
+    }
+  },
+  computed: {
+    textColor() {
+      return this.$store.getters["app/textColor"];
     }
   }
 };

@@ -35,5 +35,11 @@ export default {
 			);
 
 			resolve();
+		}),
+	setMobileMenu: (context, menu) =>
+		new Promise(resolve => {
+			context.commit("setMobileMenu", menu);
+
+			resolve();
 		})
 };

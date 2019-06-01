@@ -1,11 +1,8 @@
 <template lang="pug">
   .container
     .row
-      .col.s12
-        br
-    .row
       .col.s12.m6.l6.xl4(v-for="(article, index) in articles" :key="index" v-if="!loading")
-        news-card(v-bind:title="article.title" v-bind:link="article.url" v-bind:image="article.urlToImage" v-bind:source="article.source.name" v-bind:color="color" v-bind:published-at="article.publishedAt") {{ article.content }}
+        news-card(v-bind:title="article.title" v-bind:link="article.url" v-bind:image="article.urlToImage" v-bind:source="article.source.name" v-bind:color="color" v-bind:published-at="article.publishedAt") {{ article.content || article.description }}
       .col.s12.center-align.valign-wrapper.preloader(v-if="loading")
         .preloader-wrapper.big.active
           .spinner-layer.spinner-blue-only
