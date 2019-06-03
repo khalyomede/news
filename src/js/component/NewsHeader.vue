@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    .navbar-fixed
+    .navbar-fixed#menu
       nav(v-bind:class="{ 'z-depth-2': !isAtTop }")
         div(v-bind:class="`nav-wrapper white`")
           .container
@@ -14,9 +14,15 @@
                   slot(name="right")
     ul.sidenav#mobile-menu
       slot(name="mobile")
+    .fixed-action-btn
+      a#scroll-to-menu(v-bind:class="`btn-floating btn-large waves-effect waves-light white`" v-show="!isAtTop" v-on:click="scrollToMenu")
+        i(v-bind:class="`material-icons ${textColor}`") keyboard_arrow_up
 </template>
 <script>
-import { Sidenav } from "materialize-css/dist/js/materialize";
+import {
+  Sidenav,
+  FloatingActionButton
+} from "materialize-css/dist/js/materialize";
 export default {
   props: {
     color: {
@@ -33,6 +39,13 @@ export default {
       isAtTop: true
     };
   },
+  methods: {
+    scrollToMenu() {
+      document.querySelector("#menu").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+  },
   mounted() {
     var mobileMenu = Sidenav.init(document.querySelector("#mobile-menu"), {
       edge: "right"
@@ -43,6 +56,8 @@ export default {
     window.addEventListener("scroll", () => {
       this.isAtTop = window.scrollY === 0;
     });
+
+    FloatingActionButton.init(document.querySelector("#scroll-to-menu"));
   }
 };
 </script>

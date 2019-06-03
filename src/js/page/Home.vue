@@ -40,6 +40,15 @@ export default {
     await this.$store.dispatch("home/setArticles");
 
     this.loading = false;
+  },
+  metaInfo: {
+    title: "News",
+    meta: [
+      {
+        name: "description",
+        content: "Find all the news recap and save them for later reading."
+      }
+    ]
   }
 };
 </script>

@@ -87,11 +87,6 @@ const clear = () =>
 		.pipe(plumber())
 		.pipe(clean());
 
-const fonts = () =>
-	src("node_modules/simple-line-icons/fonts/*.{eot,svg,ttf,woff,woff2}")
-		.pipe(plumber())
-		.pipe(dest("dist/font"));
-
 const reload = async done => {
 	await browser.reload();
 };
@@ -108,6 +103,6 @@ const start = () => {
 	watch("src/css/**/*.sass", series(css, reload));
 };
 
-const build = parallel(js, html, css, fonts);
+const build = parallel(js, html, css);
 
 export { start, build };

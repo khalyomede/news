@@ -1,7 +1,7 @@
 <template lang="pug">
   .card
     .card-image.waves-effect.waves-block.waves-light
-      img.activator.lazy(v-bind:src="image" alt="Article illustration" v-if="image")
+      img.activator.lazy(v-bind:data-src="image" alt="Article illustration" v-if="image")
       a(v-bind:class="`btn-floating halfway-fab waves-effect waves-light ${color}`")
         i.material-icons(v-if="!bookmarked" v-on:click="bookmark") bookmark_outline
         i.material-icons(v-if="bookmarked" v-on:click="unbookmark") bookmark
@@ -19,11 +19,34 @@
       p.flow-text
         slot
       .card-action.center-align
-        a(v-bind:href="link" rel="noreferer noopener" v-bind:class="`btn btn-large ${color}`") read more
+        a(v-bind:href="link" rel="noreferer noopener" v-bind:class="`btn btn-large ${color}`") {{ $t("read more") }}
 </template>
 <script>
 import isUrl from "is-url";
 import moment from "moment";
+import "moment/locale/ar";
+import "moment/locale/be";
+import "moment/locale/bg";
+import "moment/locale/br";
+import "moment/locale/ca";
+import "moment/locale/de";
+import "moment/locale/fr";
+import "moment/locale/hu";
+import "moment/locale/id";
+import "moment/locale/it";
+import "moment/locale/lt";
+import "moment/locale/lv";
+import "moment/locale/my";
+import "moment/locale/nl";
+import "moment/locale/pl";
+import "moment/locale/pt";
+import "moment/locale/ro";
+import "moment/locale/ru";
+import "moment/locale/se";
+import "moment/locale/si";
+import "moment/locale/sk";
+import "moment/locale/th";
+import "moment/locale/tr";
 import { Toast } from "materialize-css";
 
 export default {
@@ -68,6 +91,8 @@ export default {
     this.bookmarked = this.$store.getters["app/bookmarkedArticles"].find(
       article => article.url === this.link
     );
+
+    moment.locale(this.language);
   },
   computed: {
     elapsed() {
@@ -75,6 +100,14 @@ export default {
     },
     cleanTitle() {
       return this.title.replace(/(-[\s\w.]+$)/gimu, "");
+    },
+    language() {
+      return this.$store.getters["app/language"];
+    }
+  },
+  watch: {
+    language(newValue, oldValue) {
+      moment.locale(newValue);
     }
   },
   methods: {

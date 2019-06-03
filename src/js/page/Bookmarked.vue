@@ -24,6 +24,15 @@ export default {
     textColor() {
       return this.$store.getters["app/textColor"];
     }
+  },
+  metaInfo: {
+    title: "Bookmarked — News",
+    meta: [
+      {
+        name: "description",
+        content: "All you bookmarked news articles regrouped here."
+      }
+    ]
   }
 };
 </script>

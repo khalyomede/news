@@ -3,29 +3,29 @@
     header
       nav
         news-header(v-bind:color="color" v-bind:text-color="textColor")
-          div(slot="brand") News
+          div(slot="brand") {{ $t("brand") }}
           div(slot="right")
             news-header-item(to="/setting") 
-              | Settings
+              | {{ $t("Settings") }}
               i.material-icons.left settings
             news-header-item(to="/bookmarked")
               i.material-icons.left bookmark
-              | Bookmarked
+              | {{ $t("Bookmarked") }}
               span.badge(v-if="bookmarkedArticlesCount > 0") {{ bookmarkedArticlesCount }}
           div(slot="mobile")
             news-header-item(to="/setting") 
               i.material-icons settings
-              | Settings
+              | {{ $t("Settings") }}
             news-header-item(to="/bookmarked")
               i.material-icons bookmark
-              | Bookmarked
+              | {{ $t("Bookmarked") }}
               span.badge.right(v-if="bookmarkedArticlesCount > 0") {{ bookmarkedArticlesCount }}
     main
       router-view
     footer
         news-footer(v-bind:color="color")
           div(slot="bottom") 
-            | Made possible with 
+            | {{ $t("Made possible with") }} 
             a(href="https://newsapi.org" target="blank" rel="noreferer noopenener") https://newsapi.org
             | .
 </template>
@@ -49,12 +49,23 @@ export default {
     },
     bookmarkedArticlesCount() {
       return this.$store.getters["app/bookmarkedArticlesCount"];
+    },
+    language() {
+      return this.$store.getters["app/language"];
+    }
+  },
+  watch: {
+    language(newValue) {
+      this.$i18n.locale = newValue;
     }
   },
   created() {
     this.$store.dispatch("home/setLazyload");
+
+    this.$i18n.locale = this.language;
   },
   metaInfo: {
+    title: "News",
     meta: [{ name: "theme-color", content: "#006064" }]
   }
 };

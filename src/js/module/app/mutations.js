@@ -16,5 +16,13 @@ export default {
 			"bookmarkedArticles",
 			JSON.stringify(state.bookmarkedArticles)
 		);
+	},
+	setLanguage: (state, language) => {
+		state.newsLanguage = language;
+		localStorage.setItem("language", state.newsLanguage);
+	},
+	setCountry: (state, country) => {
+		state.country = country;
+		localStorage.setItem("country", state.country);
 	}
 };
