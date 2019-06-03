@@ -1,5 +1,5 @@
 const bookmarkedArticles = localStorage.getItem("bookmarkedArticles");
-const language = localStorage.getItem("newsLanguage");
+const language = localStorage.getItem("language");
 const country = localStorage.getItem("country");
 
 export default {
@@ -11,18 +11,60 @@ export default {
 	language: language ? language : "en",
 	country: country ? country : "us",
 	countries: [
-		{
-			value: "ae",
-			text: "United Arab Emirates"
-		},
+		{ value: "ae", text: "United Arab Emirates" },
 		{ value: "ar", text: "Argentina" },
 		{ value: "at", text: "Austria" },
 		{ value: "au", text: "Australia" },
 		{ value: "be", text: "Belgium" },
 		{ value: "bg", text: "Bulgaria" },
 		{ value: "br", text: "Brazil" },
+		{ value: "ca", text: "Canada" },
+		{ value: "ch", text: "Switzerland" },
+		{ value: "cn", text: "China" },
+		{ value: "co", text: "Colombia" },
+		{ value: "cu", text: "Cuba" },
+		{ value: "cz", text: "Czech Republic" },
+		{ value: "de", text: "Germany" },
+		{ value: "eg", text: "Egypt" },
+		{ value: "fr", text: "France" },
+		{ value: "gb", text: "United Kingdom" },
+		{ value: "gr", text: "Greece" },
+		{ value: "hk", text: "Hong Kong" },
+		{ value: "hu", text: "Hungary" },
+		{ value: "id", text: "Indonesia" },
+		{ value: "ie", text: "Ireland" },
+		{ value: "il", text: "Israel" },
+		{ value: "in", text: "India" },
+		{ value: "it", text: "Italy" },
+		{ value: "jp", text: "Japan" },
+		{ value: "kr", text: "Korea, Republic of" },
+		{ value: "lt", text: "Lithuania" },
+		{ value: "lv", text: "Latvia" },
+		{ value: "ma", text: "Morocco" },
+		{ value: "mx", text: "Mexico" },
+		{ value: "my", text: "Malaysia" },
+		{ value: "ng", text: "Nigeria" },
+		{ value: "nl", text: "Netherlands" },
+		{ value: "no", text: "Norway" },
+		{ value: "nz", text: "New Zealand" },
+		{ value: "ph", text: "Philippines" },
+		{ value: "pl", text: "Poland" },
+		{ value: "pt", text: "Portugal" },
+		{ value: "ro", text: "Romania" },
+		{ value: "rs", text: "Serbia" },
+		{ value: "ru", text: "Russian Federation" },
+		{ value: "sa", text: "Saudi Arabia" },
+		{ value: "se", text: "Sweden" },
+		{ value: "sg", text: "Singapore" },
+		{ value: "si", text: "Slovenia" },
+		{ value: "sk", text: "Slovakia" },
+		{ value: "th", text: "Thailand" },
+		{ value: "tr", text: "Turkey" },
+		{ value: "tw", text: "Taiwan" },
+		{ value: "ua", text: "Ukraine" },
 		{ value: "us", text: "United States" },
-		{ value: "fr", text: "France" }
+		{ value: "ve", text: "Venezuela" },
+		{ value: "za", text: "Zambia" }
 	],
 	languages: [
 		{

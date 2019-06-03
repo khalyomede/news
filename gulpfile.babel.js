@@ -87,6 +87,41 @@ const clear = () =>
 		.pipe(plumber())
 		.pipe(clean());
 
+const manifest = () =>
+	src("src/manifest.webmanifest")
+		.pipe(plumber())
+		.pipe(dest("dist"))
+		.pipe(browser.stream());
+
+const serviceWorker = () =>
+	src("src/service-worker.js")
+		.pipe(plumber())
+		.pipe(
+			ifEnv.not(
+				"production",
+				browserify({
+					transform: ["babelify"],
+					debug: true
+				})
+			)
+		)
+		.pipe(
+			ifEnv(
+				"production",
+				browserify({
+					transform: ["babelify"],
+					plugin: ["tinyify"]
+				})
+			)
+		)
+		.pipe(dest("dist"))
+		.pipe(browser.stream());
+
+const htaccess = () =>
+	src("src/.htaccess")
+		.pipe(plumber())
+		.pipe(dest("dist"));
+
 const reload = async done => {
 	await browser.reload();
 };
@@ -101,8 +136,13 @@ const start = () => {
 	watch("src/js/**/*.{js,vue}", series(js, reload));
 	watch("src/html/**/*.pug", series(html, reload));
 	watch("src/css/**/*.sass", series(css, reload));
+	watch("src/manifest.webmanifest", series(manifest, reload));
+	watch("src/service-worker.js", series(serviceWorker, reload));
 };
 
-const build = parallel(js, html, css);
+const build = series(
+	clear,
+	parallel(js, html, css, manifest, serviceWorker, htaccess)
+);
 
 export { start, build };

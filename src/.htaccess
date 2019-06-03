@@ -1,0 +1,63 @@
+# Add security headers
+header always set x-xss-protection "1; mode=block"
+header always set strict-transport-security "max-age=31536000; includeSubDomains; preload"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "same-origin"
+Header always set Feature-Policy "geolocation 'none'; midi 'none'; notifications 'none'; push 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'none'; vibrate 'none'; fullscreen 'none'; payment 'none';"
+Header always set Content-Security-Policy "frame-src *; script-src 'unsafe-inline' 'self'; style-src https://fonts.googleapis.com 'self'; style-src-elem https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://newsapi.org; img-src *;"
+
+# Force the user to be redirected to the https version
+RewriteEngine ON
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
+# Add files compression
+<IfModule mod_deflate.c>
+    SetOutputFilter DEFLATE
+    # Don't compress images
+    SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Prevent the server to send signature
+ServerSignature Off
+
+# Prevent from hotlinking
+RewriteEngine On
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^https://(www.)?news.stellar-labs.io/.*$ [NC]
+RewriteRule .(gif|jpg|jpeg|png|svg|webp)$ https://media.giphy.com/media/l0HlvtIPzPdt2usKs/giphy.gif [R,L]
+
+# Prevent browsing the folder
+Options All -Indexes
+
+# Prevent to be able to browse the .htaccess
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+# Prevent the service worker to be cached
+<Files service-worker.js>
+	<IfModule mod_expires.c>
+		ExpiresActive Off
+	</IfModule>
+	<IfModule mod_headers.c>
+		FileETag None
+		Header unset ETag
+		Header unset Pragma
+		Header unset Cache-Control
+		Header unset Last-Modified
+		Header set Pragma "no-cache"
+		Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+		Header set Expires "Thu, 1 Jan 1970 00:00:00 GMT"
+	</IfModule>
+</Files>

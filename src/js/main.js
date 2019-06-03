@@ -1,3 +1,5 @@
+import "./service-worker";
+
 import App from "./page/App.vue";
 import i18n from "./i18n";
 import VueMeta from "vue-meta";

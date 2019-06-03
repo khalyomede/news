@@ -18,8 +18,8 @@ export default {
 		);
 	},
 	setLanguage: (state, language) => {
-		state.newsLanguage = language;
-		localStorage.setItem("language", state.newsLanguage);
+		state.language = language;
+		localStorage.setItem("language", state.language);
 	},
 	setCountry: (state, country) => {
 		state.country = country;

@@ -3,8 +3,8 @@
         .row
             .col.s12
                 news-form
-                    news-form-select#test(v-bind:options="countries" v-bind:selected="country" v-on:change="onCountryChange") Country
-                    news-form-select(v-bind:options="languages" v-bind:selected="language" v-on:change="onLanguageChange") Language
+                    news-form-select#test(v-bind:options="countries" v-bind:selected="country" v-on:change="onCountryChange") {{ $t("Country") }}
+                    news-form-select(v-bind:options="languages" v-bind:selected="language" v-on:change="onLanguageChange") {{ $t("Language") }}
 </template>
 <script>
 import NewsForm from "../../component/NewsForm.vue";
@@ -21,7 +21,7 @@ export default {
       const country = event.target.value;
 
       new Toast({
-        html: `Changing country to ${country}...`,
+        html: this.$t("Changing country to {country}...", { country }),
         inDuration: this.toastAnimationDuration,
         displayLength: this.toastDisplayDuration
       });
@@ -31,7 +31,7 @@ export default {
           await this.$store.dispatch("app/setCountry", country);
 
           new Toast({
-            html: `Changed country to ${country}.`,
+            html: this.$t("Changed country to {country}.", { country }),
             inDuration: this.toastAnimationDuration,
             displayLength: this.toastDisplayDuration
           });
@@ -43,7 +43,7 @@ export default {
       const language = event.target.value;
 
       new Toast({
-        html: `Changing language to ${language}...`,
+        html: this.$t("Changing language to {language}...", { language }),
         inDuration: this.toastAnimationDuration,
         displayLength: this.toastDisplayDuration
       });
@@ -53,7 +53,7 @@ export default {
           await this.$store.dispatch("app/setLanguage", language);
 
           new Toast({
-            html: `Changed language to ${language}.`,
+            html: this.$t("Changed language to {language}.", { language }),
             inDuration: this.toastAnimationDuration,
             displayLength: this.toastDisplayDuration
           });

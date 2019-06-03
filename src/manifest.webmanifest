@@ -1,0 +1,9 @@
+{
+	"name": "News",
+	"short_name": "News",
+	"theme_color": "#006064",
+	"background_color": "#ffffff",
+	"display": "standalone",
+	"scope": "/",
+	"start_url": "/"
+}

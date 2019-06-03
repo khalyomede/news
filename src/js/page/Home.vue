@@ -48,6 +48,15 @@ export default {
         name: "description",
         content: "Find all the news recap and save them for later reading."
       }
+    ],
+    link: [
+      {
+        rel: "canonical",
+        href:
+          process.env.NODE_ENV === "production"
+            ? "https://news.stellar-labs.io"
+            : "http://localhost:3000"
+      }
     ]
   }
 };
