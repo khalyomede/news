@@ -112,7 +112,7 @@ export default {
   },
   methods: {
     bookmark() {
-      new Toast({
+      const toast = new Toast({
         html: `Bookmarking...`,
         inDuration: this.delayBeforeToastCompletlyDisplayed,
         displayLength: this.toastDisplayDuration,
@@ -129,6 +129,8 @@ export default {
 
           this.bookmarked = true;
 
+          toast.dismiss();
+
           new Toast({
             html: "Bookmarked.",
             inDuration: this.delayBeforeToastCompletlyDisplayed,
@@ -140,7 +142,7 @@ export default {
       );
     },
     unbookmark() {
-      new Toast({
+      const toast = new Toast({
         html: "Unbookmarking...",
         inDuration: this.delayBeforeToastCompletlyDisplayed,
         displayLength: this.toastDisplayDuration,
@@ -152,6 +154,8 @@ export default {
           await this.$store.dispatch("app/unbookmarkArticle", this.link);
 
           this.bookmarked = false;
+
+          toast.dismiss();
 
           new Toast({
             html: "Unbookmarked",

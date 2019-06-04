@@ -20,7 +20,7 @@ export default {
     onCountryChange(event) {
       const country = event.target.value;
 
-      new Toast({
+      const toast = new Toast({
         html: this.$t("Changing country to {country}...", { country }),
         inDuration: this.toastAnimationDuration,
         displayLength: this.toastDisplayDuration
@@ -29,6 +29,8 @@ export default {
       setTimeout(
         async function() {
           await this.$store.dispatch("app/setCountry", country);
+
+          toast.dismiss();
 
           new Toast({
             html: this.$t("Changed country to {country}.", { country }),
@@ -42,7 +44,7 @@ export default {
     onLanguageChange(event) {
       const language = event.target.value;
 
-      new Toast({
+      const toast = new Toast({
         html: this.$t("Changing language to {language}...", { language }),
         inDuration: this.toastAnimationDuration,
         displayLength: this.toastDisplayDuration
@@ -51,6 +53,8 @@ export default {
       setTimeout(
         async function() {
           await this.$store.dispatch("app/setLanguage", language);
+
+          toast.dismiss();
 
           new Toast({
             html: this.$t("Changed language to {language}.", { language }),
