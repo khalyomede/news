@@ -12,6 +12,12 @@ export default {
 	"Changed country to {country}.": "Pays changé pour {country}.",
 	"Changing language to {language}...": "Changement de langue en {language}...",
 	"Changed language to {language}.": "Langue changé pour {language}.",
+	"Unable to fetch articles. Please try again in a few minutes.":
+		"Impossible de récupérer des articles. Merci de partienter quelques minutes.",
+	"Too many attempt. Please wait a few minutes before trying again.":
+		"Trop de tentatives. Merci de patienter quelques minutes avant de réessayer.",
+	"No more credits available to fetch articles.":
+		"Plus aucun crédits disponibles pour récupérer des articles.",
 	"United Arab Emirates": "Émirats arabes unis",
 	Argentina: "Argentine",
 	Austria: "Autriche",

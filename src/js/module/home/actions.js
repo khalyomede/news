@@ -18,7 +18,15 @@ export default {
 
 				const response = await request.json();
 
-				context.commit("setArticles", response.articles);
+				console.log("response", response);
+
+				if (response.status === "ok") {
+					context.commit("setArticles", response.articles);
+				} else {
+					if (response.code !== "maximumResultsReached") {
+						throw new Error(response.code);
+					}
+				}
 
 				resolve();
 			} catch (exception) {
