@@ -15,6 +15,7 @@
 		"@babel/preset-env": "7.*",
 		"@babel/register": "7.*",
 		"@babel/runtime": "7.*",
+		"@khalyomede/browser-worker": "0.*",
 		"babel-plugin-transform-inline-environment-variables": "0.*",
 		"babelify": "10.*",
 		"browser-sync": "2.*",
